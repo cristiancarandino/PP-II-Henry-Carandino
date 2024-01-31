@@ -1,25 +1,12 @@
-# Proporciona una interfaz para trabajar con tokens AST en Python.
 asttokens==2.2.1
-
-# Framework web rápido para construir APIs con Python 3.7+.
 fastapi==0.103.0
-
-# Natural Language Toolkit, una biblioteca para el procesamiento del lenguaje natural.
 nltk==3.8.1
-
-# Biblioteca de manipulación y análisis de datos en Python.
 pandas>=1.0.0
-
-# Módulo que proporciona soporte para anotaciones de tipo avanzadas.
 typing_extensions==4.7.1
-
-# Un servidor ASGI que se utiliza para ejecutar aplicaciones FastAPI.
 uvicorn==0.15.0
-
-# Proporciona una interfaz para trabajar con información del sistema y procesos en ejecución.
 psutil==5.9.4
-
-# Biblioteca de aprendizaje automático en Python. Proporciona herramientas sencillas y eficientes para el análisis predictivo de datos.
-scikit-learn>=0.24.0,<0.25.0
+scikit-learn<0.25.0,>=0.24.0
+numpy==1.19.4
+scipy==1.7.0
 
 
