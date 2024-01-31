@@ -16,14 +16,10 @@ typing_extensions==4.7.1
 # Un servidor ASGI que se utiliza para ejecutar aplicaciones FastAPI.
 uvicorn==0.15.0
 
-# Biblioteca para procesar datos en columnares. Puede ser útil para convertir DataFrames de Pandas a formato Parquet.
-pyarrow==5.0.0
-
 # Proporciona una interfaz para trabajar con información del sistema y procesos en ejecución.
 psutil==5.9.4
 
 # Biblioteca de aprendizaje automático en Python. Proporciona herramientas sencillas y eficientes para el análisis predictivo de datos.
 scikit-learn>=0.24.0,<0.25.0
 
-setuptools==58.3.0
 
