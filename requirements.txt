@@ -25,3 +25,5 @@ psutil==5.9.4
 # Biblioteca de aprendizaje automático en Python. Proporciona herramientas sencillas y eficientes para el análisis predictivo de datos.
 scikit-learn>=0.24.0,<0.25.0
 
+setuptools==58.3.0
+
