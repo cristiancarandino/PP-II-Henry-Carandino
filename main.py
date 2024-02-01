@@ -1,8 +1,12 @@
+import uvicorn
 import pandas as pd
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+
+# Importa el módulo developer desde la carpeta endpoints
+from endpoints import developer
 
 app = FastAPI()
 
@@ -117,5 +121,7 @@ async def recomendacion_juego(product_id: int):
     except Exception as e:
         return {"message": f"Error: {str(e)}"}
 
+# Incluye el router del endpoint developer
+app.include_router(developer.router)
 
 
