@@ -1,18 +1,25 @@
 import pandas as pd
-from fastapi import FastAPI
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 
-# Carga el DataFrame df_steam desde el archivo CSV
-df_steam = pd.read_csv('./Data/steam_games.csv')
-
-# Realiza la conversión de precios en df_steam
-df_steam['price'] = df_steam['price'].apply(lambda x: float(x.replace('$', '').replace(',', '')) if isinstance(x, str) and x.replace('$', '').replace(',', '').replace('.', '').isdigit() else 0.0)
-
-# Configura la aplicación FastAPI
 app = FastAPI()
 
-# Define un endpoint para obtener datos de un usuario según su user_id
+# Cargar el DataFrame df_steam desde tu archivo CSV
+df_steam = pd.read_csv('./Data/steam_games.csv')
+
+# Realiza la conversión de precio en df_steam
+df_steam['price'] = df_steam['price'].apply(lambda x: float(x.replace('$', '').replace(',', '')) if isinstance(x, str) and x.replace('$', '').replace(',', '').replace('.', '').isdigit() else 0.0)
+
+# Configurar plantillas HTML con Jinja2
+templates = Jinja2Templates(directory="templates")
+
+# Rutas
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
 @app.get("/userdata/{user_id}")
 async def userdata(user_id: str):
     try:
@@ -25,7 +32,6 @@ async def userdata(user_id: str):
         chunk_size = 100000
         user_reviews_generator = pd.read_csv('./Data/reviews.csv', chunksize=chunk_size)
 
-        # Itera a través de los lotes de reviews
         for chunk in user_reviews_generator:
             user_reviews = chunk[chunk['user_id'] == user_id]
 
@@ -35,33 +41,35 @@ async def userdata(user_id: str):
             total_reviews += len(user_reviews)
             item_ids.update(user_reviews['item_id'].unique())
 
-        # Calcula el porcentaje de recomendaciones
-        recommend_percentage = (recommend_count / total_reviews) * 100 if total_reviews > 0 else 0
-
-        # Obtiene la cantidad de items únicos
+        #Calcula el porcentage de recomendaciones
+        if total_reviews > 0:
+            porcentaje = (recommend_count / total_reviews) * 100
+        else:
+            porcentaje = 0
+        #Cuenta los numeros de items
         cantidad_de_items = len(item_ids)
 
-        # Crea un diccionario con los resultados
         user_data = {
             "Cantidad de dinero gastado": Cantidad,
-            "Porcentaje de recomendación": recommend_percentage,
-            "Cantidad de items": cantidad_de_items
+            "recommend_porcentaje": porcentaje,
+            "cantidad de items": cantidad_de_items
         }
 
         return user_data
 
     except Exception as e:
-        # Manejo de errores
         return {"message": f"Error: {str(e)}"}
 
-# Carga el DataFrame df_steam2 desde el archivo CSV
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Cargar el DataFrame df_steam desde tu archivo CSV
 df_steam2 = pd.read_csv('./Data/steam_games.csv')
 
-# Define un endpoint para obtener recomendaciones de juego según el product_id
 @app.get("/recomendacion_juego/{product_id}")
 async def recomendacion_juego(product_id: int):
     try:
-        # Obtiene el ID del juego
+        # Obtener el ID del juego
         target_game = df_steam2[df_steam2['id'] == product_id]
 
         if target_game.empty:
@@ -107,7 +115,7 @@ async def recomendacion_juego(product_id: int):
         return {"message": "No se encontraron juegos similares"}
 
     except Exception as e:
-        # Manejo de errores
         return {"message": f"Error: {str(e)}"}
+
 
 
