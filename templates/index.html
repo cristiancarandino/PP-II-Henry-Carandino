@@ -11,38 +11,48 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Ajusta la altura al 100% de la ventana visible */
+            height: 100vh;
             background: url('https://blogs.iadb.org/conocimiento-abierto/wp-content/uploads/sites/10/2015/11/Visualizacion-de-datos.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: Arial, sans-serif;
             color: #ffffff;
-            margin: 0; /* Elimina los márgenes predeterminados */
+            margin: 0;
         }
 
         .henry-logo {
-            width: 200px; /* Ajusta el tamaño según sea necesario */
-            margin-bottom: 20px; /* Agrega espacio debajo del logo */
+            width: 200px;
+            margin-bottom: 20px;
         }
 
         h1 {
             color: #ffd700;
-            margin: 0; /* Elimina el margen superior del título */
+            margin: 0;
         }
 
         p {
             font-size: 18px;
         }
 
-        .ver-proyecto-button {
+        .ver-proyecto-button,
+        .github-button {
             text-decoration: none;
             display: inline-block;
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #ffffff;
-            color: #4CAF50;
             border: none;
             border-radius: 5px;
-            margin-top: 20px; /* Agrega espacio encima del botón */
+            margin-top: 20px;
+        }
+
+        .ver-proyecto-button {
+            background-color: #ffffff;
+            color: #4CAF50;
+            margin-right: 10px; /* Espaciado entre los botones */
+        }
+
+        .github-button {
+            background-color: #333;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -54,8 +64,14 @@
     <h1>Proyecto Individual - Cristian Carandino - Henry 2024</h1>
     <p>Bienvenido a mi proyecto individual. Explora los siguientes endpoints:</p>
 
+    <!-- Botón para ver el proyecto -->
     <a href="/docs" class="ver-proyecto-button">
         Ver Proyecto
+    </a>
+
+    <!-- Botón de GitHub con la URL correcta -->
+    <a href="https://github.com/cristiancarandino/PP-II-Henry-Carandino/" class="github-button">
+        GitHub
     </a>
 
 </body>
