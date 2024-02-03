@@ -5,8 +5,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 
-# Importa el módulo developer desde la carpeta endpoints
-from endpoints import developer
+# Importa el módulo developer_reviews desde la carpeta endpoints
+from endpoints import developer_reviews_analysis, file_info
 
 app = FastAPI()
 
@@ -45,12 +45,12 @@ async def userdata(user_id: str):
             total_reviews += len(user_reviews)
             item_ids.update(user_reviews['item_id'].unique())
 
-        #Calcula el porcentage de recomendaciones
+        # Calcula el porcentaje de recomendaciones
         if total_reviews > 0:
             porcentaje = (recommend_count / total_reviews) * 100
         else:
             porcentaje = 0
-        #Cuenta los numeros de items
+        # Cuenta los numeros de items
         cantidad_de_items = len(item_ids)
 
         user_data = {
@@ -121,7 +121,8 @@ async def recomendacion_juego(product_id: int):
     except Exception as e:
         return {"message": f"Error: {str(e)}"}
 
-# Incluye el router del endpoint developer
-app.include_router(developer.router)
-
+# Incluye el router del nuevo endpoint developer_reviews
+app.include_router(developer_reviews_analysis.router)
+# Incluye el router del nuevo endpoint file_info
+app.include_router(file_info.router)
 
