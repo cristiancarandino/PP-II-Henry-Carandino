@@ -54,4 +54,4 @@ El código incluye la implementación de un sistema de recomendación basado en 
 ## Recursos
 
 - La aplicación está disponible en: [https://proyecto-individual-henry-ky7g.onrender.com](https://proyecto-individual-henry-ky7g.onrender.com)
-- Video explicativo del funcionamiento de la aplicación: [YouTube](https://youtube.com/#)
+- Video explicativo del funcionamiento de la aplicación: [YouTube](https://youtu.be/x6OcjSShNQI)
